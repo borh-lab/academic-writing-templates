@@ -1,15 +1,7 @@
 ---
 title: 論文タイトル
-subtitle: 論文サブタイトル
-author: 言文 花子
-abstract: |
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
-  論文の要旨…論文の要旨…論文の要旨…論文の要旨…
+subtitle: ―論文サブタイトル―
+author: 博士前期課程1年次　言文 花子（\texttt{u0123456x@ecs.osaka-u.ac.jp}） `\\`{=latex} 指導教員：A准教授　B教授
 reference-section-title: 参考文献
 link-citations: true
 link-bibliography: true
@@ -30,16 +22,21 @@ header-includes:
   - \usepackage{tikz}
   # Dummy text (remove)
   - \usepackage{lipsum}
+  # Compact layout for handout
+  - \usepackage[compact]{titlesec}
+  - \usepackage{titling}
+  - \pretitle{\vspace{-3cm}\begin{center}\Large\mcfamily\bfseries}
+  - \posttitle{\par\end{center}}
+  - \preauthor{\begin{center}}
+  - \postauthor{\end{center}\vspace{-1cm}}
+  - \predate{\begin{center}}
+  - \postdate{\par\end{center}}
 documentclass: ltjsarticle
 classoption:
-  - 12pt
-  - titlepage
-  # - mainmatter
+  - b5paper
+  - 10pt
   - draft
 top-level-division: chapter
-lof: true
-lot: true
-toc: true
 pdf-engine: lualatex
 bilatex: yes
 # https://ftp.kddilabs.jp/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-apa/biblatex-apa-test.pdf
@@ -47,9 +44,23 @@ biblio-style: apa
 bibliography:
   - bibliography.bib
 ---
-<!-- markdownlint-disable-file MD025 MD013 -->
+<!-- markdownlint-disable-file MD025 MD013 MD032 MD029 MD060 -->
 
-\newpage
+\begin{table}[h!]
+\centering
+\caption*{目次}
+\begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|}
+ \hline
+ 1. Introduction
+ \newline
+ 2. Previous research
+&
+ \textbf{3. New section}
+ \newline
+ 4. Results \\
+ \hline
+\end{tabular}
+\end{table}
 
 # 初めに
 
@@ -109,10 +120,9 @@ Hello
 
 @shibasaki_japanese_2010 によれば，…
 
-| **column1** | **column2** |
+| column1 | column2 |
 |---------|---------|
 | 1       | 2       |
-| 3       | 4       |
 
 : Demonstration of simple table syntax. {#tbl:my_table}
 

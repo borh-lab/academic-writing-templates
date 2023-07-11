@@ -11,7 +11,7 @@ else
 fi
 
 # pandoc $THESIS_BASENAME.md -t latex --pdf-engine=lualatex --biblatex --number-sections --standalone --filter pandoc-crossref --filter pandoc-xnos -o $THESIS_BASENAME.tex
-pandoc $THESIS_BASENAME.md -t latex --pdf-engine=lualatex --biblatex --number-sections --standalone --filter pandoc-crossref -o $THESIS_BASENAME.tex
+pandoc $THESIS_BASENAME.md -t latex --template=latex-template.pandoc --pdf-engine=lualatex --biblatex --number-sections --standalone --filter pandoc-crossref -o $THESIS_BASENAME.tex
 lualatex $THESIS_BASENAME --interaction=nonstopmode
 biber $THESIS_BASENAME
 lualatex $THESIS_BASENAME --interaction=nonstopmode
