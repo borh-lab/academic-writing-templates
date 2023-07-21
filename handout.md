@@ -1,7 +1,7 @@
 ---
 title: 論文タイトル
 subtitle: ―論文サブタイトル―
-author: 博士前期課程1年次　言文 花子（\texttt{u0123456x@ecs.osaka-u.ac.jp}） `\\`{=latex} 指導教員：A准教授　B教授
+author: 大阪大学 大学院人文学研究科 言語文化学専攻 博士前期課程1年次　言文 花子（\texttt{u0123456x@ecs.osaka-u.ac.jp}） `\\`{=latex} 指導教員：A准教授　B教授
 reference-section-title: 参考文献
 link-citations: true
 link-bibliography: true
@@ -40,7 +40,9 @@ top-level-division: chapter
 pdf-engine: lualatex
 bilatex: yes
 # https://ftp.kddilabs.jp/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-apa/biblatex-apa-test.pdf
-biblio-style: apa
+biblio-style: gb7714-2015ay
+biblatexoptions: gbnamefmt=familyahead,gbtype=false,gbmedium=false,gbpunctin=false,maxbibnames=10
+# biblio-style: apa
 bibliography:
   - bibliography.bib
 ---
@@ -164,7 +166,7 @@ As we can see in @tbl:my_table, this is ...
 
 # 方法
 
-\lipsum[1-4]
+\lipsum[4-5]
 
 ```python
 import spacy
@@ -179,11 +181,11 @@ lemmas = [token.lemma_ for token in nlp.pipe(text)]
 
 # 結果
 
-\lipsum[1-4]
+\lipsum[1-3]
 
 # 考察
 
-\lipsum[1-4]
+\lipsum[1-3]
 
 # 終わりに
 

@@ -1,0 +1,272 @@
+% https://gitpress.io/@statrstart/biblatex01
+\usepackage{xpatch}
+%
+%著者名とタイトルの間の区切り文字をコロンにする
+\renewcommand{\labelnamepunct}{\addcolon\addspace} 
+%文献末尾.削除
+\renewcommand{\finentrypunct}{}
+% タイトルにダブルクオーテーション(\mkbibquote)をつける.( 日本語の場合「」をつける)
+\AtEveryBibitem{%
+\iffieldequalstr{langid}{japanese}
+      {\DeclareFieldFormat*{title}{「#1」}} % if true
+      {\DeclareFieldFormat*{title}{\mkbibquote{#1\adddot}}} % if false
+}
+%booktitleをイタリック体へ( 日本語の場合『』をつける)
+\AtEveryBibitem{%
+\iffieldequalstr{langid}{japanese}
+{\DeclareFieldFormat*{booktitle}{『#1』}}
+{\DeclareFieldFormat*{booktitle}{\textit{#1}}}
+}
+%volumeを太字へ
+\DeclareFieldFormat*{volume}{\textbf{#1}\addcolon\space}
+% 等->他
+\DefineBibliographyStrings{english}{%
+    andotherscn = {他}
+}
+\DefineBibliographyStrings{english}{%
+    andothersincitecn = {他}
+}
+%in: -> In:
+\renewbibmacro{in:}{\iffieldequalstr{langid}{japanese}{}{\space{In:}}}
+%年をカッコで囲む
+\DeclareFieldFormat*{date}{(#1)}
+%
+%%%%% editor 英語:(Ed.)or(Eds.)  日本語:(編) %%%%%
+
+\AtEveryBibitem{%
+\iffieldequalstr{langid}{japanese}
+      {\DeclareFieldFormat{editortype}{編}} % if true
+      {} % if false
+}
+
+\renewbibmacro*{editorstrg}{%
+  \ifnameundef{editor}{}{%
+    \printtext[editortype]{%
+        \iffieldundef{editortype}
+        {\ifboolexpr{
+                test {\ifnumgreater{\value{editor}}{1}}
+                or
+                test {\ifandothers{editor}}
+            }
+            {\bibstring{editors}}
+            {\bibstring{editor}}}
+        {\ifbibxstring{\thefield{editortype}}
+            {\ifboolexpr{
+                    test {\ifnumgreater{\value{editor}}{1}}
+                    or
+                    test {\ifandothers{editor}}
+                }
+                {\bibstring{\thefield{editortype}s}}
+                {\bibstring{\thefield{editortype}}}}
+            {\thefield{editortype}}}}}}
+
+\DeclareNameAlias{editorin}{first-last}
+
+\newbibmacro*{byeditor:in}{%
+  \ifnameundef{editor}
+    {}
+    {\printnames[editorin]{editor}%
+     \addspace\bibsentence%
+     \mkbibparens{\usebibmacro{editorstrg}}%
+     \clearname{editor}%
+     \printunit{\addcomma\space}}}
+
+\DeclareBibliographyDriver{incollection}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit
+%  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+% Ed. by -> (Ed.) or (Eds.)
+\xpatchbibdriver{incollection}
+  {\usebibmacro{in:}%
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}}
+  {\usebibmacro{in:}%
+   \usebibmacro{byeditor:in}%
+   \setunit{\labelnamepunct}\newblock
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{byeditor}}
+  {}{}
+
+% biblatex standard.bbx
+\DeclareBibliographyDriver{inbook}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit
+%  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{bybookauthor}%
+  \newunit\newblock
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\xpatchbibdriver{inbook}
+  {\usebibmacro{in:}%
+   \usebibmacro{bybookauthor}%
+   \newunit\newblock
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}}
+  {\usebibmacro{in:}%
+   \usebibmacro{bybookauthor}%
+   \newunit\newblock
+   \usebibmacro{byeditor:in}%
+   \newunit\newblock
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}}
+  {}{}
+
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\printdelim{nametitledelim}}\newblock
+  \usebibmacro{title}%
+  \newunit
+%  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{event+venue+date}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\xpatchbibdriver{inproceedings}
+  {\usebibmacro{in:}%
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{event+venue+date}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}}
+  {\usebibmacro{in:}%
+   \usebibmacro{byeditor:in}%
+   \setunit{\labelnamepunct}\newblock
+   \usebibmacro{maintitle+booktitle}%
+   \newunit\newblock
+   \usebibmacro{event+venue+date}%
+   \newunit\newblock
+   \usebibmacro{byeditor+others}}
+  {}{}

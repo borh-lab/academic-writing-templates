@@ -440,6 +440,8 @@ $if(logo)$
 $endif$
 $endif$
 
+\input{japanese-gb7714.tex}
+
 \begin{document}
 $if(has-frontmatter)$
 \frontmatter

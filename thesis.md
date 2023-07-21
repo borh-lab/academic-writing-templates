@@ -43,7 +43,9 @@ toc: true
 pdf-engine: lualatex
 bilatex: yes
 # https://ftp.kddilabs.jp/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-apa/biblatex-apa-test.pdf
-biblio-style: apa
+# biblio-style: apa
+biblio-style: gb7714-2015ay
+biblatexoptions: gbnamefmt=familyahead,gbtype=false,gbmedium=false,gbpunctin=false,maxbibnames=10
 bibliography:
   - bibliography.bib
 ---
