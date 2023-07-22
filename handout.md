@@ -38,7 +38,7 @@ classoption:
   - draft
 top-level-division: chapter
 pdf-engine: lualatex
-bilatex: yes
+biblatex: yes
 # https://ftp.kddilabs.jp/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-apa/biblatex-apa-test.pdf
 biblio-style: gb7714-2015ay
 biblatexoptions: gbnamefmt=familyahead,gbtype=false,gbmedium=false,gbpunctin=false,maxbibnames=10
@@ -48,7 +48,7 @@ bibliography:
 ---
 <!-- markdownlint-disable-file MD025 MD013 MD032 MD029 MD060 -->
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \caption*{目次}
 \begin{tabular}{|p{0.3\textwidth}|p{0.3\textwidth}|}
