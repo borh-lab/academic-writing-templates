@@ -6,7 +6,7 @@
 if [ -z "$1" ]; then
 	THESIS_BASENAME="thesis"
 else
-	THESIS_BASENAME=$(basename $1)
+	THESIS_BASENAME=$(basename -s .md $1)
 fi
 
 # If using watchman:

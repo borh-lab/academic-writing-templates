@@ -7,7 +7,7 @@
 if [ -z "$1" ]; then
 	THESIS_BASENAME="thesis"
 else
-	THESIS_BASENAME=$(basename $1)
+	THESIS_BASENAME=$(basename -s .md $1)
 fi
 
 # pandoc $THESIS_BASENAME.md -t latex --pdf-engine=lualatex --biblatex --number-sections --standalone --filter pandoc-crossref --filter pandoc-xnos -o $THESIS_BASENAME.tex
