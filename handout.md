@@ -122,11 +122,17 @@ Hello
 
 @shibasaki_japanese_2010 によれば，…
 
+<!-- You can make markdown tables smaller by adding \small before and \normalsize after. -->
+
+\large
+
 | column1 | column2 |
 |---------|---------|
 | 1       | 2       |
 
-: Demonstration of simple table syntax. {#tbl:my_table}
+: Demonstration of simple table syntax (\\large size). {#tbl:my_table}
+
+\normalsize
 
 As we can see in @tbl:my_table, this is ...
 
@@ -139,7 +145,7 @@ As we can see in @tbl:my_table, this is ...
 ## データの詳細
 
 <!-- https://tex.stackexchange.com/questions/604496/how-to-generate-beautiful-tables-in-latex -->
-\begin{table}[!h]
+\begin{table}[!ht]
 \centering
 \begin{threeparttable}
 \caption{Valores de afinidad obtenidos para los ocho fármacos en \textit{Autodock Vina}}

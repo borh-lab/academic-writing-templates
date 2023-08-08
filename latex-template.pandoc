@@ -528,6 +528,8 @@ $if(beamer)$
   \printbibliography[heading=none]
 \end{frame}
 $else$
+%% Hack: as a last resort, make the bibliography smaller by changing to \small or similar :(
+%% \renewcommand*{\bibfont}{\tiny}
 \printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
 $endif$
 
