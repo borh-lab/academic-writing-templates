@@ -1,21 +1,16 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # https://devenv.sh/basics/
-  env.GREET = "devenv";
-
   # https://devenv.sh/packages/
   packages = with pkgs; [
     git
     fswatch
+    typst
   ];
 
   # https://devenv.sh/scripts/
-  scripts.hello.exec = "echo hello from $GREET";
   scripts.compile-thesis.exec = "${pkgs.bash}/bin/bash make.sh thesis";
 
   enterShell = ''
-    hello
     git --version
   '';
 
