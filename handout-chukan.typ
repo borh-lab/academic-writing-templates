@@ -72,13 +72,13 @@ Hello
 // Japanese text section
 日本語で論文を書く。*日本語で論文を書きたい。*
 日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
-日本語で論文を書く。日本語で論文を書く。
+
+#let jtext = "日本語で論文を書く。"
+#let i = 0
+#while i < 250 {
+  i += 1
+  jtext
+}
 
 // Chinese text section
 我想用日语写一篇论文。我想用日语写一篇论文。
@@ -99,9 +99,9 @@ Hello
 // References example
 @benjamin_reconstructing_2012, @hodoscek_readability_2012, @dubay_smart_2007, @pitler_revisiting_2008, @sato_automatic_2008, @Sato2008
 
-@shibasaki_japanese_2010 によれば，…
+#cite(<shibasaki_japanese_2010>, form: "prose")によれば，…
 
-// Table example
+// Table example (add caption like below)
 #table(
   columns: (auto, auto, 1fr),
   table.header[Date][°No][Description],
@@ -156,14 +156,14 @@ lemmas = [token.lemma_ for token in nlp.pipe(text)]
 
 // Results section
 = 結果
-#lorem(800)
+#lorem(600)
 
 // Discussion section
 = 考察
-#lorem(400)
+#lorem(300)
 
 // Conclusion section
 = 終わりに
-#lorem(250)
+#lorem(150)
 
 #bibliography("./bibliography.bib", style: "apa")

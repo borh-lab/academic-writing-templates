@@ -24,17 +24,17 @@
   )
   let header-string = text(10pt, venue + h(1fr) + date)
   set page(
-    paper: "a4",
+    paper: "iso-b5",
     margin: (x: 2cm, y: 2cm),
     header: align(center, header-string),
     numbering: "1"
   )
   set text(
     lang: "ja",
-    size: 11pt,
-    font: ("Linux Libertine", "Source Han Serif")
+    size: 10pt,
+    font: ("Libertinus Serif", "Source Han Serif")
   )
-  set par(justify: true, )
+  set par(justify: true, first-line-indent: 1em)
   set heading(numbering: "1. ")
   set math.equation(numbering: "(1)")
 
