@@ -67,8 +67,10 @@
   set align(left)
   body
 
-  // Remove first-line-indent from the bibliography
-  set par(first-line-indent: 0em, hanging-indent: 1em)
-  set text(size: bibliography-size)
-  bibliography(bibliography-file, style: bibliography-style)
+  if bibliography-file != none {
+    // Remove first-line-indent from the bibliography
+    set par(first-line-indent: 0em, hanging-indent: 1em)
+    set text(size: bibliography-size)
+    bibliography(bibliography-file, style: bibliography-style)
+  }
 }
