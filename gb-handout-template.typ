@@ -40,6 +40,13 @@
   set par(justify: true, first-line-indent: 1em, spacing: 0.68em)
   set heading(numbering: "1. ")
   set math.equation(numbering: "(1)")
+  // Fix for issue: https://github.com/typst/typst/issues/311
+  let fakepar = context {
+    box()
+    v(-0.5 * measure(block() + block()).height)
+  }
+  show heading: it => it + fakepar
+  show figure: it => it + fakepar
 
 
   set align(center)
@@ -60,6 +67,7 @@
   set align(left)
   body
 
+  // Remove first-line-indent from the bibliography
   set par(first-line-indent: 0em, hanging-indent: 1em)
   set text(size: bibliography-size)
   bibliography(bibliography-file, style: bibliography-style)

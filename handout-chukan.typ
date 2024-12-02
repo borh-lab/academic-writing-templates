@@ -12,14 +12,6 @@
   doc
 )
 
-// https://github.com/typst/typst/issues/311
-#show heading: it => {
-  it
-  let a = par(box())
-  a
-  v(-0.8 * measure(2 * a).width)
-}
-
 #import "@preview/metro:0.3.0": *
 #metro-setup(group-separator: ",", group-minimum-digits: 4)
 #import "@preview/syntree:0.2.0": syntree
