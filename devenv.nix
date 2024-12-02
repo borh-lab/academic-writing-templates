@@ -1,10 +1,13 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # https://devenv.sh/basics/
   # https://devenv.sh/packages/
   packages = with pkgs; [
     git
     fswatch
     typst
+    source-han-serif
+    source-han-sans
   ];
 
   # https://devenv.sh/scripts/
