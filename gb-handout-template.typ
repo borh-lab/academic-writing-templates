@@ -16,6 +16,9 @@
   affiliation: "大阪大学 大学院人文学研究科 言語文化学専攻",
   status: none,
   supervisors: none,
+  bibliography-file: none,
+  bibliography-style: "apa",
+  bibliography-size: 9pt,
   body
 ) = {
   set document(
@@ -34,7 +37,7 @@
     size: 10pt,
     font: ("Libertinus Serif", "Source Han Serif")
   )
-  set par(justify: true, first-line-indent: 1em)
+  set par(justify: true, first-line-indent: 1em, spacing: 0.68em)
   set heading(numbering: "1. ")
   set math.equation(numbering: "(1)")
 
@@ -56,4 +59,8 @@
 
   set align(left)
   body
+
+  set par(first-line-indent: 0em, hanging-indent: 1em)
+  set text(size: bibliography-size)
+  bibliography(bibliography-file, style: bibliography-style)
 }

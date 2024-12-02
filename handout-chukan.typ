@@ -7,8 +7,18 @@
   date: "2024月8月X日",
   status: "博士前期課程X年次",
   supervisors: ([A准教授], [B教授]),
+  bibliography-file: "./bibliography.bib",
+  bibliography-style: "apa",
   doc
 )
+
+// https://github.com/typst/typst/issues/311
+#show heading: it => {
+  it
+  let a = par(box())
+  a
+  v(-0.8 * measure(2 * a).width)
+}
 
 #import "@preview/metro:0.3.0": *
 #metro-setup(group-separator: ",", group-minimum-digits: 4)
@@ -166,4 +176,3 @@ lemmas = [token.lemma_ for token in nlp.pipe(text)]
 = 終わりに
 #lorem(150)
 
-#bibliography("./bibliography.bib", style: "apa")
