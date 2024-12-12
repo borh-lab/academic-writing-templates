@@ -19,6 +19,7 @@
   bibliography-file: none,
   bibliography-style: "apa",
   bibliography-size: 9pt,
+  language: "ja",
   body
 ) = {
   set document(
@@ -35,9 +36,26 @@
   set text(
     lang: "ja",
     size: 10pt,
-    font: ("Libertinus Serif", "Source Han Serif")
+    font: (
+      "Libertinus Serif",
+      "Source Han Serif",
+      "Hiragino Mincho ProN",
+      "Yu Mincho",
+   )
   )
-  set par(justify: true, first-line-indent: 1em, spacing: 0.68em)
+  show raw: set text(font: (
+      "IBM Plex Mono",
+      "Source Han Mono",
+      "Hiragino Kaku Gothic ProN",
+      "Yu Gothic",
+    )
+  )
+
+  // For Japanese:
+  let fli = if language == "ja" {1em} else {0em}
+  let par-spacing = if language == "ja" {0.68em} else {1.2em}
+  set par(justify: true, first-line-indent: fli, spacing: par-spacing)
+
   set heading(numbering: "1. ")
   set math.equation(numbering: "(1)")
   // Fix for issue: https://github.com/typst/typst/issues/311
@@ -48,6 +66,14 @@
   show heading: it => it + fakepar
   show figure: it => it + fakepar
 
+  // Ensure captions are placed top for tables and bottom for figures
+  show figure.where(
+    kind: table
+  ): set figure.caption(position: top)
+
+  show figure.where(
+    kind: image
+  ): set figure.caption(position: bottom)
 
   set align(center)
   // set block(spacing: 1.5em)

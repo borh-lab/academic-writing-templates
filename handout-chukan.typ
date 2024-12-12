@@ -9,9 +9,11 @@
   supervisors: ([A准教授], [B教授]),
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
+  language: "ja", // "ja" or "en"
   doc
 )
 
+// Optional packages (delete if unused)
 #import "@preview/metro:0.3.0": *
 #metro-setup(group-separator: ",", group-minimum-digits: 4)
 #import "@preview/syntree:0.2.0": syntree
@@ -34,7 +36,9 @@
 = 初めに
 #lorem(120)
 
-#lorem(400)
+#lorem(300)
+
+#lorem(15)
 
 #align(center)[
   #figure(
@@ -51,7 +55,7 @@
 
 #lorem(50)
 
-#lorem(100)
+#lorem(80)
 
 // Equation example
 $ x = lim_{inf}alpha $ <measure>
@@ -77,7 +81,7 @@ Hello
 
 #let jtext = "日本語で論文を書く。"
 #let i = 0
-#while i < 250 {
+#while i < 220 {
   i += 1
   jtext
 }
@@ -96,7 +100,7 @@ Hello
 
 // Previous research section
 = 先行研究 <previous_research>
-#lorem(400)
+#lorem(200)
 
 // References example
 @benjamin_reconstructing_2012, @hodoscek_readability_2012, @dubay_smart_2007, @pitler_revisiting_2008, @sato_automatic_2008, @Sato2008
@@ -115,7 +119,7 @@ Hello
 // Data section
 = データ
 @previous_research に書いたように…
-#lorem(400)
+#lorem(200)
 
 #for x in range(250, step: 50) {
 box(square(fill: luma(x)))
@@ -124,7 +128,7 @@ box(square(fill: luma(x)))
 == データの詳細
 
 #figure(
-  caption: figure.caption(position: top, [表の説明]),
+  caption: [表の説明],
   table(
     columns: 6,
     stroke: (x: none),
@@ -154,6 +158,8 @@ with open("corpus.txt") as f:
   text = f.read()
 
 lemmas = [token.lemma_ for token in nlp.pipe(text)]
+
+nlp("これは例文です。")
 ```
 
 // Results section
