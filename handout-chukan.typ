@@ -3,13 +3,14 @@
   author: "言文 花子",
   title: "2年かけた素晴らしい論文のTitle",
   subtitle: "詳細な論文のサブタイトル",
-  venue: "令和6年度　博士前期課程2年次中間発表　ハンドアウト",
-  date: "2024月8月X日",
+  venue: "令和7年度　博士前期課程2年次中間発表　ハンドアウト",
+  date: "2025月8月X日",
   status: "博士前期課程X年次",
   supervisors: ([A准教授], [B教授]),
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
   language: "ja", // "ja" or "en"
+  font-size: 9.5pt,
   doc
 )
 
@@ -18,25 +19,30 @@
 #metro-setup(group-separator: ",", group-minimum-digits: 4)
 #import "@preview/syntree:0.2.0": syntree
 #import "@preview/ascii-ipa:2.0.0": *
+#import "@preview/roremu:0.1.0": roremu
 
 // Table of Contents
 
 #align(center)[
   #figure(
-    caption: figure.caption(position: top, [目次]),
+    caption: figure.caption(position: top, [修士論文の構成（*ボルド*は今回言及する分）]),
     numbering: none,
   table(columns: 2, align: (left, left),
     [1. Introduction
-    2. Previous research],
+    2. 先行研究],
     [*3. New section*
     4. Results],
   ))]
 
 // Introduction section
 = 初めに
+
+カナ漢字Romaji混じり文ABCDEF123456１２３４５６あいうえお，、。．.,！？!?
+#branner("'XUX:i,Xae)S:tlI")
+
 #lorem(120)
 
-#lorem(300)
+#lorem(375)
 
 #lorem(15)
 
@@ -44,7 +50,7 @@
   #figure(
     caption: [What is a wug?],
     syntree(
-      nonterminal: (font: "Linux Biolinum"),
+      // nonterminal: (font: "Linux Biolinum"),
       terminal: (fill: blue),
       child-spacing: 3em, // default 1em
       layer-spacing: 2em, // default 2.3em
@@ -73,18 +79,20 @@ Hello
 Hello
 Hello
 
-#branner("'XUX:i,Xae)S:tlI")
 
 // Japanese text section
 日本語で論文を書く。*日本語で論文を書きたい。*
-日本語で論文を書く。日本語で論文を書く。
+#roremu(33)
 
+#set par(first-line-indent: 0em)
+// #let jtext = "０１２３４５６７８９"
 #let jtext = "日本語で論文を書く。"
 #let i = 0
 #while i < 220 {
   i += 1
   jtext
 }
+#set par(first-line-indent: 1em)
 
 // Chinese text section
 我想用日语写一篇论文。我想用日语写一篇论文。

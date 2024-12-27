@@ -1,11 +1,4 @@
-#let title-block(body) = {
-  text(14pt, weight: "bold", body)
-  v(12pt, weak: true)
-}
-#let subtitle-block(body) = {
-  text(12pt, weight: "medium", "― " + body + " ―")
-  v(12pt, weak: true)
-}
+#let non-cjk-range = "[^\p{scx:Han}\p{scx:Hira}\p{scx:Kana}。．，、！？０１２３４５６７８９（）]+"
 
 #let report(
   author: none,
@@ -16,39 +9,70 @@
   affiliation: "大阪大学 大学院人文学研究科 言語文化学専攻",
   status: none,
   supervisors: none,
+  font-size: 10pt,
   bibliography-file: none,
   bibliography-style: "apa",
-  bibliography-size: 9pt,
+  bibliography-size: 10pt,
   language: "ja",
   body
 ) = {
+
+  let title-block(body) = {
+    text(font-size*1.4, weight: "bold", body)
+    v(font-size*1.2, weak: true)
+  }
+  let subtitle-block(body) = {
+    text(font-size*1.2, weight: "medium", "― " + body + " ―")
+    v(font-size*1.2, weak: true)
+  }
+
   set document(
     title: title,
     author: author,
   )
-  let header-string = text(10pt, venue + h(1fr) + date)
+  let header-string = text(font-size, venue + h(1fr) + date)
   set page(
     paper: "iso-b5",
-    margin: (x: 2cm, y: 2cm),
+    margin: (x: 1.5cm, y: 1.5cm),
     header: align(center, header-string),
     numbering: "1"
   )
-  set text(
-    lang: "ja",
-    size: 10pt,
-    font: (
-      "Libertinus Serif",
-      "Source Han Serif",
-      "Hiragino Mincho ProN",
-      "Yu Mincho",
-   )
+
+  let japanese_serif = (
+    "Source Han Serif", // Preffered font for Japanese
+    "Hiragino Mincho ProN", // Native macOS
+    "Yu Mincho", // Native Windows
   )
-  show raw: set text(font: (
-      "IBM Plex Mono",
-      "Source Han Mono",
-      "Hiragino Kaku Gothic ProN",
-      "Yu Gothic",
-    )
+  let default_serif = (
+    // "EB Garamond",
+    "Libertinus Serif", // Default Typst font
+  )
+  let japanese_mono = (
+    "Source Han Mono", // Preffered font for Japanese
+    "Hiragino Kaku Gothic ProN", // Native macOS
+    "Yu Gothic", // Native Windows
+  )
+  let default_mono = (
+    "Sarasa Mono J",
+  )
+
+  set text(
+    lang: language,
+    size: font-size,
+    font: default_serif + japanese_serif,
+  )
+  show raw: set text(font: default_mono + japanese_mono)
+
+  show math.equation: set text(font: "IBM Plex Math")
+
+  // FIXME how to only set in par or make the size depend on the context?
+  // show regex("[a-zA-Z0-9.,&*? ]+"): set text(
+  // show regex("[^\p{Han}\p{Hiragana}\p{Katakana}]+"): set text(
+  show regex(non-cjk-range): set text(
+    font: default_serif,
+    number-type: "lining",
+    size: font-size*1.2,
+    weight: 400,
   )
 
   // For Japanese:
@@ -84,15 +108,16 @@
 
   status + h(1em) + author
 
-  v(10pt, weak: true)
+  v(font-size, weak: true)
 
   text()[指導教員：]
   supervisors.join(", ")
-  linebreak()
+  v(font-size * 1.2, weak: true)
 
   set align(left)
   body
 
+  // TODO: Need to adjust non-CJK text size here as well
   if bibliography-file != none {
     // Remove first-line-indent from the bibliography
     set par(first-line-indent: 0em, hanging-indent: 1em)
