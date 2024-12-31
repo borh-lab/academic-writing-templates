@@ -361,6 +361,25 @@ $if(natbib)$
 $endif$
 $if(biblatex)$
 \usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite]{
+    \map[overwrite]{
+      \step[fieldsource=langid, match=\regexp{japanese}, final]
+      \step[fieldsource=keywords, match=\regexp{\A.+\Z}, final]
+      \step[fieldset=keywords, fieldvalue={,japanese}, appendstrict]
+    }
+    \map{
+      \step[fieldsource=langid, match=\regexp{japanese}, final]
+      \step[fieldset=keywords, fieldvalue={,japanese}, appendstrict]
+    }
+    \map{
+      \step[fieldsource=langid, match=\regexp{english}, final]
+      \step[fieldset=keywords, fieldvalue={,english}, appendstrict]
+    }
+  }
+}
+
 $for(bibliography)$
 \addbibresource{$bibliography$}
 $endfor$
@@ -440,7 +459,8 @@ $if(logo)$
 $endif$
 $endif$
 
-\input{japanese-gb7714.tex}
+
+% \input{japanese-gb7714.tex}
 
 \begin{document}
 $if(has-frontmatter)$
@@ -530,7 +550,14 @@ $if(beamer)$
 $else$
 %% Hack: as a last resort, make the bibliography smaller by changing to \small or similar :(
 %% \renewcommand*{\bibfont}{\tiny}
-\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+\begin{refcontext}[]{}
+  \printbibliography[title={参考文献},keyword=japanese] % ,notkeyword=japanese
+\end{refcontext}
+
+\printbibliography[$if(biblio-title)$title=$biblio-title$$else$title={References}$endif$,notkeyword=japanese] % ,notkeyword=japanese
+
+
 $endif$
 
 $endif$

@@ -6,10 +6,10 @@
 if [ -z "$1" ]; then
 	THESIS_BASENAME="thesis"
 else
-	THESIS_BASENAME=$(basename -s .md $1)
+	THESIS_BASENAME="$(basename -s .md "$1")"
 fi
 
 # If using watchman:
 # watchman-make -p '*.md' '*.bib' --run ./make.sh ${THESIS_BASENAME}
 
-fswatch --event Updated -o *.md *.bib | xargs -I{} ./make.sh ${THESIS_BASENAME}
+fswatch --event Updated -o ./*.md ./*.bib | xargs -I{} ./make.sh "${THESIS_BASENAME}"

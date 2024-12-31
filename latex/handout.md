@@ -31,6 +31,8 @@ header-includes:
   - \postauthor{\end{center}\vspace{-1cm}}
   - \predate{\begin{center}}
   - \postdate{\par\end{center}}
+  - |
+    
 documentclass: ltjsarticle
 classoption:
   - b5paper
@@ -40,9 +42,9 @@ top-level-division: chapter
 pdf-engine: lualatex
 biblatex: yes
 # https://ftp.kddilabs.jp/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-apa/biblatex-apa-test.pdf
-biblio-style: gb7714-2015ay
-biblatexoptions: gbnamefmt=familyahead,gbtype=false,gbmedium=false,gbpunctin=false,maxbibnames=10
-# biblio-style: apa
+# biblio-style: gb7714-2015ay
+# biblatexoptions: gbnamefmt=familyahead,gbtype=false,gbmedium=false,gbpunctin=false,maxbibnames=10
+biblio-style: apa
 bibliography:
   - bibliography.bib
 ---

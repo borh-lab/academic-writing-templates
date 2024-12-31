@@ -1,5 +1,5 @@
-#import "./gb-handout-template.typ": report
-#show: (doc) => report(
+#import "./thesis-template.typ": thesis
+#show: (doc) => thesis(
   author: "言文 花子",
   title: "2年かけた素晴らしい論文のTitle",
   subtitle: "詳細な論文のサブタイトル",
@@ -10,7 +10,6 @@
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
   language: "ja", // "ja" or "en"
-  font-size: 9.5pt,
   doc
 )
 
@@ -20,19 +19,6 @@
 #import "@preview/syntree:0.2.0": syntree
 #import "@preview/ascii-ipa:2.0.0": *
 #import "@preview/roremu:0.1.0": roremu
-
-// Table of Contents
-
-#align(center)[
-  #figure(
-    caption: figure.caption(position: top, [修士論文の構成（*ボルド*は今回言及する分）]),
-    numbering: none,
-  table(columns: 2, align: (left, left),
-    [1. Introduction
-    2. 先行研究],
-    [*3. New section*
-    4. Results],
-  ))]
 
 // Introduction section
 = 初めに/Introduction
@@ -94,7 +80,9 @@ Hello
 
 // Japanese text section
 日本語で論文を書く。*日本語で論文を書きたい。*
-#roremu(33)
+#roremu(1600)
+
+#pagebreak()
 
 #set par(first-line-indent: 0em)
 // #let jtext = "０１２３４５６７８９"

@@ -1,4 +1,4 @@
-#let non-cjk-range = "[^\p{scx:Han}\p{scx:Hira}\p{scx:Kana}。．，、！？０１２３４５６７８９（）]+"
+#import "./lib.typ"
 
 #let report(
   author: none,
@@ -16,21 +16,23 @@
   language: "ja",
   body
 ) = {
+  // Settings
 
   let title-block(body) = {
-    text(font-size*1.4, weight: "bold", body)
+    let title-font-size = font-size * 1.4
+    lib.non-cjk-style(text(title-font-size, weight: "bold", body), title-font-size)
     v(font-size*1.2, weak: true)
   }
   let subtitle-block(body) = {
-    text(font-size*1.2, weight: "medium", "― " + body + " ―")
+    let subtitle-font-size = font-size * 1.2
+    lib.non-cjk-style(text(subtitle-font-size, weight: "medium", sym.dash.em.two + body + sym.dash.em.two), subtitle-font-size)
     v(font-size*1.2, weak: true)
   }
 
-  set document(
-    title: title,
-    author: author,
-  )
+  set document(title: title, author: author)
+
   let header-string = text(font-size, venue + h(1fr) + date)
+
   set page(
     paper: "iso-b5",
     margin: (x: 1.5cm, y: 1.5cm),
@@ -38,42 +40,28 @@
     numbering: "1"
   )
 
-  let japanese_serif = (
-    "Source Han Serif", // Preffered font for Japanese
-    "Hiragino Mincho ProN", // Native macOS
-    "Yu Mincho", // Native Windows
-  )
-  let default_serif = (
-    // "EB Garamond",
-    "Libertinus Serif", // Default Typst font
-  )
-  let japanese_mono = (
-    "Source Han Mono", // Preffered font for Japanese
-    "Hiragino Kaku Gothic ProN", // Native macOS
-    "Yu Gothic", // Native Windows
-  )
-  let default_mono = (
-    "Sarasa Mono J",
-  )
-
   set text(
     lang: language,
     size: font-size,
-    font: default_serif + japanese_serif,
+    font: lib.default_serif + lib.japanese_serif,
   )
-  show raw: set text(font: default_mono + japanese_mono)
 
-  show math.equation: set text(font: "IBM Plex Math")
+  show raw: it => {
+    set text(font: lib.default_mono + lib.japanese_mono, size: font-size)
+    it
+  }
 
-  // FIXME how to only set in par or make the size depend on the context?
-  // show regex("[a-zA-Z0-9.,&*? ]+"): set text(
-  // show regex("[^\p{Han}\p{Hiragana}\p{Katakana}]+"): set text(
-  show regex(non-cjk-range): set text(
-    font: default_serif,
-    number-type: "lining",
-    size: font-size*1.2,
-    weight: 400,
+  show raw.where(block: true): block.with(
+    stroke: luma(200),
+    inset: 8pt,
+    radius: 4pt,
+    width: 100%,
   )
+
+  // show math.equation: set text(font: "IBM Plex Math")
+  // show math.equation: set text(font: "New Computer Modern Math")
+
+
 
   // For Japanese:
   let fli = if language == "ja" {1em} else {0em}
@@ -82,12 +70,18 @@
 
   set heading(numbering: "1. ")
   set math.equation(numbering: "(1)")
-  // Fix for issue: https://github.com/typst/typst/issues/311
+
+  // Fix for issue affecting Japanese: https://github.com/typst/typst/issues/311
   let fakepar = context {
     box()
     v(-0.5 * measure(block() + block()).height)
   }
-  show heading: it => it + fakepar
+  show heading: it => {
+    let heading-font-size = font-size * 1.2
+    set text(size: heading-font-size)
+    lib.non-cjk-style(it, heading-font-size)
+    fakepar
+  }
   show figure: it => it + fakepar
 
   // Ensure captions are placed top for tables and bottom for figures
@@ -98,6 +92,9 @@
   show figure.where(
     kind: image
   ): set figure.caption(position: bottom)
+
+
+  // Document start
 
   set align(center)
   // set block(spacing: 1.5em)
@@ -115,6 +112,18 @@
   v(font-size * 1.2, weak: true)
 
   set align(left)
+
+  // Apply CJK font ratio scaling to the body after setting in title.
+  // FIXME how to only set in par or make the size depend on the context?
+  // show regex("[a-zA-Z0-9.,&*? ]+"): set text(
+  // show regex("[^\p{Han}\p{Hiragana}\p{Katakana}]+"): set text(
+  show regex(lib.non-cjk-range): set text(
+    // font: default_serif,
+    // number-type: "lining",
+    size: font-size*1.2,
+    // weight: 400,
+  )
+  //
   body
 
   // TODO: Need to adjust non-CJK text size here as well
