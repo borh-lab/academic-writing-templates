@@ -50,11 +50,26 @@
 
   set page(
     paper: "a4",
-    margin: (left: 3cm, right: 3cm, bottom: 3cm, top: 3cm),
+    margin: (inside: 3.5cm, outside: 2.5cm, bottom: 3cm, top: 3cm),
   )
 
-  set heading(numbering: "1. ")
-  set math.equation(numbering: "(1)")
+  set heading(
+    hanging-indent: 0pt,
+    numbering: (..nums) => {
+      let vals = nums.pos()
+      let pattern = if vals.len() == 1 { "1." }
+                    else if vals.len() <= 4 { "1.1" }
+      if pattern != none { numbering(pattern, ..nums) }
+    }
+  )
+
+  set math.equation(numbering: num =>
+    numbering("(1.1)", counter(heading).get().first(), num)
+  )
+
+  set figure(numbering: num =>
+    numbering("1.1", counter(heading).get().first(), num)
+  )
 
   // The first page.
   page(align(center + horizon)[
@@ -149,10 +164,25 @@
     }
 
     v(5%)
-    text(2em, weight: 700, block([#number #it.body]))
+    text(lib.title1, weight: 700, block([#number #it.body]))
     v(1.25em)
   }
-  show heading: set text(font-size * 1.2, weight: 400)
+  show heading: it => {
+    if it.level == 1 {
+      set text(lib.title1, weight: 700)
+    } else if it.level == 2 {
+      set text(lib.title2, weight: 700)
+    } else if it.level == 3 {
+      set text(lib.title3, weight: 700)
+    } else if it.level == 4 {
+      set text(lib.title4, weight: 700)
+    } else if it.level == 5 {
+      set text(lib.title5, weight: 700)
+    }
+    v(5%)
+    it
+    v(1.25em)
+  }
 
   body
 
