@@ -32,3 +32,15 @@
 #let default_mono = (
   "Sarasa Mono J",
 )
+
+#let normal-text = 1em
+#let large-text = 3em
+#let huge-text = 16em
+#let title-main-1 = 2.5em
+#let title-main-2 = 2.2em
+#let title-main-3 = 1.8em
+#let title1 = 2.2em
+#let title2 = 1.5em
+#let title3 = 1.3em
+#let title4 = 1.2em
+#let title5 = 1em

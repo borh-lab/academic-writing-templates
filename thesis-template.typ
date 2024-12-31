@@ -113,17 +113,26 @@
       if before != () {
         set text(0.95em)
         let header = smallcaps(before.last().body)
+        let counterInt = counter(heading).at(here())
         let title = smallcaps(title)
         let author = text(style: "italic", author)
-        grid(
-          columns: (1fr, 10fr, 1fr),
-          align: (left, center, right),
-          if calc.even(i) [#i],
-          // Swap `author` and `title` around, or possibly with `heading`
-          // to change what is displayed on each side.
-          if calc.even(i) { header } else { title },
-          if calc.odd(i) [#i],
-        )
+
+        if calc.even(i) { title } else {
+          set align(right)
+          numbering("1.1", ..counterInt.slice(0,1)) + ". " + header
+        }
+
+        line(length: 100%, stroke: 0.5pt)
+      }
+    },
+    footer: context {
+      let i = here().page()
+      if calc.even(i) {
+        set align(left)
+        [#i]
+      } else {
+        set align(right)
+        [#i]
       }
     },
   )
