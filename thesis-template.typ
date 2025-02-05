@@ -1,4 +1,5 @@
 #import "./lib.typ"
+#import "@preview/hydra:0.5.1": hydra
 
 #let thesis(
   author: none,
@@ -32,6 +33,16 @@
   // Workaround for https://github.com/typst/typst/issues/2722
   let is-page-empty() = {
     let page-num = here().page()
+    query(<empty-page-start>)
+      .zip(query(<empty-page-end>))
+      .any(((start, end)) => {
+        (start.location().page() < page-num
+          and page-num < end.location().page())
+      })
+  }
+
+  let is-page-i-empty(i) = {
+    let page-num = i
     query(<empty-page-start>)
       .zip(query(<empty-page-end>))
       .any(((start, end)) => {
@@ -112,16 +123,21 @@
     // - we are on an empty page
     // - we are on a page that starts a chapter
     header: context {
+    hydra(1)
       // Is this an empty page inserted to keep page parity?
-      if is-page-empty() {
+      if is-page-empty() or is-page-i-empty(here().page() - 1) {
         return
       }
 
       // Are we on a page that starts a chapter?
       let i = here().page()
-      if query(heading).any(it => it.location().page() == i) {
+      if query(heading).any(it => it.location().page() == i and it.level == 1) {
         return
       }
+      // let all = query(heading.where(level: 1))
+      // if all.any(it => it.location().page() == i) {
+      //   return
+      // }
 
       // Find the heading of the section we are currently in.
       let before = query(selector(heading).before(here()))

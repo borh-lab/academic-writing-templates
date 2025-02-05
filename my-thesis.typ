@@ -108,7 +108,7 @@ Hello
 
 // Previous research section
 = 先行研究 <previous_research>
-#lorem(200)
+#lorem(2000)
 
 // References example
 @benjamin_reconstructing_2012, @hodoscek_readability_2012, @dubay_smart_2007, @pitler_revisiting_2008, @sato_automatic_2008, @Sato2008
@@ -127,7 +127,7 @@ Hello
 // Data section
 = データ
 @previous_research に書いたように…
-#lorem(200)
+#lorem(2000)
 
 #for x in range(250, step: 50) {
 box(square(fill: luma(x)))
@@ -155,7 +155,7 @@ box(square(fill: luma(x)))
 
 // Method section
 = 方法
-#lorem(350)
+#lorem(3500)
 
 ```python
 import spacy
