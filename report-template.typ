@@ -130,7 +130,7 @@
 
   // TODO: Need to adjust non-CJK text size here as well
   if bibliography-file != none {
-    let bib-title = if language == "ja" [参考文献] else ["References"]
+    let bib-title = if language == "ja" [参考文献] else [References]
     // Remove first-line-indent from the bibliography
     set par(first-line-indent: 0em, hanging-indent: 1em)
     set text(size: bibliography-size)

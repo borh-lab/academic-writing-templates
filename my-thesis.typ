@@ -10,15 +10,22 @@
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
   language: "ja", // "ja" or "en"
+  appendix: [= 付録
+  == Some appendix],
   doc
 )
 
 // Optional packages (delete if unused)
-#import "@preview/metro:0.3.0": *
-#metro-setup(group-separator: ",", group-minimum-digits: 4)
-#import "@preview/syntree:0.2.0": syntree
+#import "@preview/unify:0.7.1": num,qty,numrange,qtyrange
+#import "@preview/numblex:0.2.0": numblex
+#import "@preview/syntree:0.2.1": syntree
 #import "@preview/ascii-ipa:2.0.0": *
 #import "@preview/roremu:0.1.0": roremu
+#import "@preview/zh-kit:0.1.0": zhnumber-lower, zhnumber-upper, pinyin, zhlorem
+#import "@preview/cjk-unbreak:0.1.1": remove-cjk-break-space
+#import "@preview/leipzig-glossing:0.5.0": gloss, example, abbreviations
+
+#let numbered-example = example.with(numbering: true)
 
 // Introduction section
 = 初めに/Introduction
@@ -181,4 +188,5 @@ nlp("これは例文です。")
 // Conclusion section
 = 終わりに
 #lorem(150)
+
 

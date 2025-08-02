@@ -1,5 +1,6 @@
 #import "./lib.typ"
-#import "@preview/hydra:0.5.1": hydra
+#import "@preview/hydra:0.6.2": hydra
+#import "@preview/numblex:0.2.0": numblex
 
 #let thesis(
   author: none,
@@ -18,6 +19,7 @@
   abstract: none,
   dedication: none,
   publishing-info: none,
+  appendix: none,
   body
 ) = {
   // Settings
@@ -82,6 +84,9 @@
     numbering("1.1", counter(heading).get().first(), num)
   )
 
+  set page(numbering: none)
+  counter(page).update(0)
+
   // The first page.
   page(align(center + horizon)[
     #text(2em)[*#title*]
@@ -94,7 +99,9 @@
     align(center + bottom, text(0.8em, publishing-info))
   }
 
-  pagebreak()
+  // pagebreak()
+
+  set page(numbering: "I")
 
   // Display the dedication at the top of the third page.
   if dedication != none {
@@ -114,6 +121,7 @@
   // set par(spacing: 0.78em, leading: 0.78em, first-line-indent: 1em, justify: true)
 
   outline()
+
   pagebreak(to: "odd", weak: true)
 
   // Configure page properties.
@@ -123,40 +131,42 @@
     // - we are on an empty page
     // - we are on a page that starts a chapter
     header: context {
-    hydra(1)
-      // Is this an empty page inserted to keep page parity?
-      if is-page-empty() or is-page-i-empty(here().page() - 1) {
-        return
-      }
+    // FIXME broken
+    // hydra(1)
+      // // Is this an empty page inserted to keep page parity?
+      // if is-page-empty() or is-page-i-empty(here().page() - 1) {
+      //   return
+      // }
 
-      // Are we on a page that starts a chapter?
-      let i = here().page()
-      if query(heading).any(it => it.location().page() == i and it.level == 1) {
-        return
-      }
+      // // Are we on a page that starts a chapter?
+      // let i = here().page()
+      // if query(heading).any(it => it.location().page() == i and it.level == 1) {
+      //   return
+      // }
       // let all = query(heading.where(level: 1))
       // if all.any(it => it.location().page() == i) {
       //   return
       // }
 
-      // Find the heading of the section we are currently in.
-      let before = query(selector(heading).before(here()))
-      if before != () {
-        set text(0.95em)
-        let header = smallcaps(before.last().body)
-        let counterInt = counter(heading).at(here())
-        let title = smallcaps(title)
-        let author = text(style: "italic", author)
+      // // Find the heading of the section we are currently in.
+      // let before = query(selector(heading).before(here()))
+      // if before != () {
+      //   set text(0.95em)
+      //   let header = smallcaps(before.last().body)
+      //   let counterInt = counter(heading).at(here())
+      //   let title = smallcaps(title)
+      //   let author = text(style: "italic", author)
 
-        if calc.even(i) { title } else {
-          set align(right)
-          numbering("1.1", ..counterInt.slice(0,1)) + ". " + header
-        }
+      //   if calc.even(i) { title } else {
+      //     set align(right)
+      //     numbering("1.1", ..counterInt.slice(0,1)) + ". " + header
+      //   }
 
-        line(length: 100%, stroke: 0.5pt)
-      }
+      //   line(length: 100%, stroke: 0.5pt)
+      // }
     },
     footer: context {
+      // FIXME the page numbering is also broken from interaction with our counter reset logic
       let i = here().page()
       if calc.even(i) {
         set align(left)
@@ -200,8 +210,10 @@
     v(1.25em)
   }
 
-  body
+  set page(numbering: "1")
+  counter(page).update(1)
 
+  body
 
   // TODO: Need to adjust non-CJK text size here as well
   if bibliography-file != none {
@@ -211,4 +223,13 @@
     bibliography(bibliography-file, style: bibliography-style)
   }
 
+  let appendix-render(s) = {
+    let appendix-format = if language == "ja" [付録] else [Appendix]
+    set heading(numbering: "A", supplement: appendix-format)
+    counter(heading).update(0)
+    s
+  }
+  if appendix != ""{
+    appendix-render(appendix)
+  }
 }
