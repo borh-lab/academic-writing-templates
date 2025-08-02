@@ -9,7 +9,7 @@
   affiliation: "大阪大学 大学院人文学研究科 言語文化学専攻",
   status: none,
   supervisors: none,
-  font-size: 10pt,
+  font-size: 10.5pt,
   bibliography-file: none,
   bibliography-style: "apa",
   bibliography-size: 10pt,
@@ -101,7 +101,9 @@
 
   title-block(title)
 
-  subtitle-block(subtitle)
+  if subtitle != "" {
+    subtitle-block(subtitle)
+  }
 
   status + h(1em) + author
 
@@ -128,9 +130,11 @@
 
   // TODO: Need to adjust non-CJK text size here as well
   if bibliography-file != none {
+    let bib-title = if language == "ja" [参考文献] else ["References"]
     // Remove first-line-indent from the bibliography
     set par(first-line-indent: 0em, hanging-indent: 1em)
     set text(size: bibliography-size)
+    // bibliography-list(title: bib-title, ..bib-file(read(bibliography-file)))
     bibliography(bibliography-file, style: bibliography-style)
   }
 }

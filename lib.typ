@@ -17,15 +17,15 @@
 )
 
 #let japanese_sans = (
-  "Source Han Sans", // Preffered font for Japanese
-  "Hiragino Kaku Gothic ProN", // Native macOS
-  "Yu Gothic", // Native Windows
+  (name: "Source Han Sans", covers: "latin-in-cjk"), // Preffered font for Japanese
+  (name: "Hiragino Kaku Gothic ProN", covers: "latin-in-cjk"), // Native macOS
+  (name: "Yu Gothic", covers: "latin-in-cjk"), // Native Windows
 )
 
 #let japanese_serif = (
-  "Source Han Serif", // Preffered font for Japanese
-  "Hiragino Mincho ProN", // Native macOS
-  "Yu Mincho", // Native Windows
+  (name: "Source Han Serif", covers: "latin-in-cjk"), // Preffered font for Japanese
+  (name: "Hiragino Mincho ProN", covers: "latin-in-cjk"), // Native macOS
+  (name: "Yu Mincho", covers: "latin-in-cjk"), // Native Windows
 )
 
 #let default_serif = (
@@ -34,9 +34,9 @@
 )
 
 #let japanese_mono = (
-  "Source Han Mono", // Preffered font for Japanese
-  "Hiragino Kaku Gothic ProN", // Native macOS
-  "Yu Gothic", // Native Windows
+  (name: "Source Han Mono", covers: "latin-in-cjk"), // Preffered font for Japanese
+  (name: "Hiragino Kaku Gothic ProN", covers: "latin-in-cjk"), // Native macOS
+  (name: "Yu Gothic", covers: "latin-in-cjk"), // Native Windows
 )
 
 #let default_mono = (

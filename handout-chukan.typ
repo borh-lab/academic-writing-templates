@@ -1,4 +1,4 @@
-#import "./gb-handout-template.typ": report
+#import "./report-template.typ": report
 #show: (doc) => report(
   author: "言文 花子",
   title: "2年かけた素晴らしい論文のTitle",
@@ -10,16 +10,22 @@
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
   language: "ja", // "ja" or "en"
-  font-size: 9.5pt,
+  font-size: 10.5pt,
+  bibliography-size: 10pt,
   doc
 )
 
 // Optional packages (delete if unused)
-#import "@preview/metro:0.3.0": *
-#metro-setup(group-separator: ",", group-minimum-digits: 4)
-#import "@preview/syntree:0.2.0": syntree
+#import "@preview/unify:0.7.1": num,qty,numrange,qtyrange
+#import "@preview/syntree:0.2.1": syntree
 #import "@preview/ascii-ipa:2.0.0": *
 #import "@preview/roremu:0.1.0": roremu
+#import "@preview/zh-kit:0.1.0": zhnumber-lower, zhnumber-upper, pinyin, zhlorem
+#import "@preview/cjk-unbreak:0.1.1": remove-cjk-break-space
+#import "@preview/leipzig-glossing:0.5.0": gloss, example, abbreviations
+#import abbreviations: pred, dem
+
+#let numbered-example = example.with(numbering: true)
 
 // Table of Contents
 
@@ -54,7 +60,7 @@ $ sum_(k=0)^n k
 
 #lorem(120)
 
-#lorem(225)
+#lorem(150)
 
 #lorem(15)
 
@@ -73,7 +79,28 @@ $ sum_(k=0)^n k
 
 #lorem(50)
 
+// Example from leipzig-glossing documentation:
+// https://code.everydayimshuflin.com/greg/typst-lepizig-glossing/src/branch/master/documentation.pdf
+#numbered-example(
+  header: [Hausa; from _Toward a functional typology of adpositions_ (2022) by Zygmunt Frajzyngier (§~3.2)],
+  label: "hausa",
+  (
+    source: ([àkwai], [mutvā̀nè ], [dà], [yawvā̀], [a], [kanyā̀]),
+    morphemes: ([exist], [People], [#smallcaps[assc]], [many], [#pred], [Kano]),
+    translation: [There are a lot of people in Kano.],
+    label: "people",
+  ),
+  (
+    source: ([àkwai], [makarr̃antv ], [a], [nan], [gàrin]),
+    morphemes: ([exist], [school], [#pred], [#dem], [town]),
+    translation: [There is a school in this town.],
+    label: "school",
+  ),
+)
+In @hausa there are two sub-examples: @people deals with people and @school with a school.
+
 #lorem(80)
+
 
 // Equation example
 $ lim_(n arrow infinity) a_n = cal(L) $ <measure>
@@ -100,32 +127,27 @@ Hello
 // #let jtext = "０１２３４５６７８９"
 #let jtext = "日本語で論文を書く。"
 #let i = 0
-#while i < 220 {
+#while i < 280 {
   i += 1
   jtext
 }
 #set par(first-line-indent: 1em)
 
 // Chinese text section
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
-我想用日语写一篇论文。我想用日语写一篇论文。
+我想用日语写一篇论文。*我想用日语写一篇论文。*
+#zhlorem(200)
 
+#pinyin("ni3 hao3, shi4 jie4 !") // 你好，世界！
+#pinyin("Typst de zhong1 wen2 pai2 ban3 fei1 chang2 ku4 !") // Typst 的中文排版非常酷！
 
 // Previous research section
 = 先行研究 <previous_research>
-#lorem(200)
+#lorem(100)
 
 // References example
 @benjamin_reconstructing_2012, @hodoscek_readability_2012, @dubay_smart_2007, @pitler_revisiting_2008, @sato_automatic_2008, @Sato2008
 
-#cite(<shibasaki_japanese_2010>, form: "prose")によれば，…
+// #cite(<shibasaki_japanese_2010>, form: "prose")によれば，…
 
 // Table example (add caption like below)
 #table(
@@ -139,7 +161,7 @@ Hello
 // Data section
 = データ
 @previous_research に書いたように…
-#lorem(200)
+#lorem(100)
 
 #for x in range(250, step: 50) {
 box(square(fill: luma(x)))
@@ -167,7 +189,7 @@ box(square(fill: luma(x)))
 
 // Method section
 = 方法
-#lorem(350)
+#lorem(150)
 
 ```python
 import spacy
@@ -184,13 +206,13 @@ nlp("これは例文です。")
 
 // Results section
 = 結果
-#lorem(600)
+#lorem(300)
 
 // Discussion section
 = 考察
-#lorem(300)
+#lorem(250)
 
 // Conclusion section
 = 終わりに
-#lorem(150)
+#lorem(80)
 
