@@ -12,6 +12,16 @@
   body
 }
 
+#let presentation_sans = (
+  "IBM Plex Sans", // Preffered font for presentations
+)
+
+#let japanese_sans = (
+  "Source Han Sans", // Preffered font for Japanese
+  "Hiragino Kaku Gothic ProN", // Native macOS
+  "Yu Gothic", // Native Windows
+)
+
 #let japanese_serif = (
   "Source Han Serif", // Preffered font for Japanese
   "Hiragino Mincho ProN", // Native macOS
@@ -31,6 +41,10 @@
 
 #let default_mono = (
   "Sarasa Mono J",
+)
+
+#let default_math_font = (
+  "DejaVu Math TeX Gyre",
 )
 
 #let normal-text = 1em

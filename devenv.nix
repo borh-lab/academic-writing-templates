@@ -16,6 +16,9 @@
   env.TYPST_FONT_PATHS = "${pkgs.source-han-serif}/share/fonts/opentype/source-han-serif:${pkgs.source-han-sans}/share/fonts/opentype/source-han-sans";
   enterShell = ''
     git --version
+    if [ -f .envrc.bor ]; then
+      source .envrc.bor
+    fi
   '';
 
   # https://devenv.sh/languages/
