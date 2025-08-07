@@ -1,6 +1,6 @@
 #let non-cjk-range = {
   let basic-cjk-range = "\p{scx:Han}\p{scx:Hira}\p{scx:Kana}"
-  let punctuation = "。．、，！？（）／"
+  let punctuation = "。．、，！？（）／："
   let numbers = "０-９"
   "[^" + basic-cjk-range + punctuation + numbers + "]+"
 }
