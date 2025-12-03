@@ -119,6 +119,9 @@
   // FIXME how to only set in par or make the size depend on the context?
   // show regex("[a-zA-Z0-9.,&*? ]+"): set text(
   // show regex("[^\p{Han}\p{Hiragana}\p{Katakana}]+"): set text(
+  // https://github.com/typst/typst/issues/6295#issuecomment-3601266317
+  // #show regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}\p{scx:Hangul}]"): set text(size: 0.925em)
+  // #show regex("[\p{scx:Hangul}]"): set text(baseline: -0.04em)
   show regex(lib.non-cjk-range): set text(
     // font: default_serif,
     // number-type: "lining",
