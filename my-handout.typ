@@ -1,11 +1,20 @@
 #import "./report-template.typ": report
+
+#let presentation_date = ("202X", "Y", "Z")
+#let my_status = "博士前期課程"
+// #let my_status = "博士後期課程"
+#let my_year = "2"
+
 #show: (doc) => report(
   author: "言文 花子",
   title: "2年かけた素晴らしい論文のTitle",
   subtitle: "詳細な論文のサブタイトル",
-  venue: "令和7年度　博士前期課程2年次中間発表　ハンドアウト",
-  date: "2025月8月X日",
-  status: "博士前期課程X年次",
+  venue: "令和X年度　博士後期課程2年次研究報告会　ハンドアウト",
+  // venue: "令和X年度　博士前期課程2年次中間発表　ハンドアウト",
+  // venue: "令和7年度　博士前期課程2年次中間発表　ハンドアウト",
+  date: [#presentation_date.at(0)年#presentation_date.at(1)月#presentation_date.at(2)日],
+  status: [#my_status #my_year 年次],
+  // status: "博士前期課程X年次",
   supervisors: ([A准教授], [B教授]),
   bibliography-file: "./bibliography.bib",
   bibliography-style: "apa",
@@ -31,7 +40,10 @@
 
 #align(center)[
   #figure(
-    caption: figure.caption(position: top, [修士論文の構成（*ボルド*は今回言及する分）]),
+    caption: figure.caption(position: top, [
+      // 修士論文構成の構想（*ボルド*は今回言及する分）
+      博士論文構成の構想（*ボルド*は今回言及する分）
+    ]),
     numbering: none,
   table(columns: 2, align: (left, left),
     [1. Introduction
